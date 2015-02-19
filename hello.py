@@ -11,9 +11,11 @@ action_url = "/" + os.environ.get('BASE_URL') + "/"
 
 @app.route(action_url, methods=['POST', 'GET'])
 def hello():
-    api.metric('mailgun.event', (request.form('timestamp'), 1), tags=["event_name:" + request.form('event')])
+    ts = request.form['timestamp']
+    event_tag = "event_name:" + request.form['event']
+    api.metric('mailgun.event', (ts, 1), tags=[event_tag])
     return "200"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
