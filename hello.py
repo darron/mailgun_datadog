@@ -11,7 +11,7 @@ action_url = "/" + os.environ.get('BASE_URL') + "/"
 
 @app.route(action_url, methods=['POST', 'GET'])
 def hello():
-    api.metric('mailgun.event', (request.args.post('timestamp'), 1), tags=["event_name:" + request.args.post('event')])
+    api.metric('mailgun.event', (request.form('timestamp'), 1), tags=["event_name:" + request.form('event')])
     return "200"
 
 if __name__ == "__main__":
