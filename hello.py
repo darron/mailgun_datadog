@@ -13,7 +13,7 @@ action_url = "/" + os.environ.get('BASE_URL') + "/"
 def hello():
     ts = request.form['timestamp']
     event_tag = "event_name:" + request.form['event']
-    api.metric('mailgun.event', (ts, 1), tags=[event_tag])
+    api.metric('mailgun.event', (ts, 1), tags=[event_tag], metric_type='counter')
     return "200"
 
 if __name__ == "__main__":
