@@ -10,10 +10,14 @@ api.api_key = os.environ.get('DD_API_KEY')
 action_url = "/" + os.environ.get('BASE_URL') + "/"
 
 @app.route(action_url, methods=['POST', 'GET'])
-def hello():
+def mailgun_event():
     ts = request.form['timestamp']
     event_tag = "event_name:" + request.form['event']
     api.metric('mailgun.event', (ts, 1), tags=[event_tag], metric_type='counter')
+    return "200"
+
+@app.route("/", methods=['POST', 'GET'])
+def root_route():
     return "200"
 
 if __name__ == "__main__":
