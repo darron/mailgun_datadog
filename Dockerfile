@@ -20,4 +20,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 80
 
-CMD gunicorn -D -b 0.0.0.0:5000 --workers=2 hello:app && nginx
+CMD gunicorn -D -b 0.0.0.0:5000 --workers=2 --log-level=debug hello:app && nginx
