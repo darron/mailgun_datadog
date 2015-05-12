@@ -1,4 +1,5 @@
 from flask import Flask
+from werkzeug.contrib.fixers import ProxyFix
 from flask import request
 import os
 from dogapi import dog_http_api as api
@@ -19,6 +20,8 @@ def mailgun_event():
 @app.route("/", methods=['POST', 'GET'])
 def root_route():
     return "200"
+
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
